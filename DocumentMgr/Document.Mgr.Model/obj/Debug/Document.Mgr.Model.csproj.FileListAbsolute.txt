@@ -1,0 +1,10 @@
+F:\ALLbishe\DocumentMgr\Document.Mgr.Model\bin\Debug\Document.Mgr.Model.dll.config
+F:\ALLbishe\DocumentMgr\Document.Mgr.Model\bin\Debug\Document.Mgr.Model.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.Model\bin\Debug\Document.Mgr.Model.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.Model\bin\Debug\EntityFramework.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.Model\bin\Debug\EntityFramework.SqlServer.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.Model\bin\Debug\EntityFramework.xml
+F:\ALLbishe\DocumentMgr\Document.Mgr.Model\bin\Debug\EntityFramework.SqlServer.xml
+F:\ALLbishe\DocumentMgr\Document.Mgr.Model\obj\Debug\Document.Mgr.Model.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.Model\obj\Debug\Document.Mgr.Model.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.Model\obj\Debug\Document.Mgr.Model.csprojResolveAssemblyReference.cache

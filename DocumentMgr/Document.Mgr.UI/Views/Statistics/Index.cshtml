@@ -1,0 +1,213 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Statistics</title>
+
+    
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div style="margin-top:30px; margin-left:-3px;"  class="container">
+        <div class="row" style="padding-right:3px;">
+            <div class="col-md-10">
+                <select class="form-control" name="statistivsSelect" id="statistivsSelect">
+                    <option selected value="none">选择统计方式</option>
+                    <option value="position">职位</option>
+                    <option value="role">角色</option>
+                    <option value="tech">技术</option>
+                    <option value="year">在职年限</option>
+
+                </select>
+            </div>
+            <div class="">
+                <button class="btn btn-primary" id="btnStatistics">Go!</button>
+            </div>
+        </div>
+        <div class="row" style="margin-top:20px;">
+            <div class="col-md-6">
+                <div id="zz" style="width: 600px;height:400px;"></div>
+            </div>
+            <div class="col-md-6">
+                <div id="bz" style="width: 600px;height:400px;"></div>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/echarts.js"></script>
+
+    <script type="text/javascript">
+        var chartZZ = echarts.init(document.getElementById('zz'));
+        var chartBZ = echarts.init(document.getElementById('bz'));
+        optionZZ = {
+            title: {
+                text: '',
+                subtext: ''
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                data: ['']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'value',
+                boundaryGap: [0, 0.01]
+            },
+            yAxis: {
+                type: 'category',
+                data: []
+            },
+            series: [
+                {
+                    name: '',
+                    type: 'bar',
+                    data: []
+                }
+            ]
+        };
+
+        optionRose = {
+            title: {
+                text: '',
+                subtext: '',
+                x: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                x: 'center',
+                y: 'bottom',
+                data: []
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: { show: true },
+                    dataView: { show: true, readOnly: false },
+                    magicType: {
+                        show: true,
+                        type: ['pie', 'funnel']
+                    },
+                    restore: { show: true },
+                    saveAsImage: { show: true }
+                }
+            },
+            calculable: true,
+            series: [
+                {
+                    name: '面积模式',
+                    type: 'pie',
+                    radius: [30, 110],
+                    center: ['75%', '50%'],
+                    roseType: 'area',
+                    data: [
+                    ]
+                }
+            ]
+        };
+
+
+
+
+        chartZZ.setOption(optionZZ);
+        chartBZ.setOption(optionRose);
+        function setZZ(data) {
+            chartZZ.setOption({
+                title: {
+                    text: data.text,
+                    subtext: data.subText
+                },
+                legend: {
+                    data: data.legendData
+                },
+                yAxis: {
+                    type: 'category',
+                    data: data.yData
+                },
+                series: [
+                    {
+                        name: data.legendData[0],
+                        type: 'bar',
+                        data: data.seriesData
+                    }
+                ]
+            })
+        };
+
+        function setRoseBZ(data) {
+            chartBZ.setOption({
+                title: {
+                    text: data.text,
+                    subtext: data.subText,
+                    x: 'center'
+                },
+                legend: {
+                    x: 'center',
+                    y: 'bottom',
+                    data: data.legendData
+                },
+                series: [
+                    {
+                        name: data.text,
+                        type: 'pie',
+                        radius: [30, 110],
+                        center: ['50%', '50%'],
+                        roseType: 'area',
+                        data: data.data
+                    }
+                ]
+            });
+        }
+        $(function () {
+            $.get('/Statistics/GetTechDataZZ').done(function (data) {
+                setZZ(data);
+            });
+
+            $.get('/Statistics/GetTechDataBZ').done(function (data) {
+                setRoseBZ(data);
+            });
+        });
+        
+    </script>
+
+    <script>
+        $(function () {
+            $("#btnStatistics").click(function () {
+                var selectValue = $("#statistivsSelect").val().trim();
+                if (selectValue == "none") {
+                    return false;
+                }
+                $.get("/Statistics/GetDataZZ", { category: selectValue }, function (data) {
+                    setZZ(data);
+                });
+                $.get("/Statistics/GetDataBZ", { category: selectValue }, function (data) {
+                    setRoseBZ(data);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+F:\ALLbishe\DocumentMgr\Document.Mgr.IBLL\bin\Debug\Document.Mgr.IBLL.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.IBLL\bin\Debug\Document.Mgr.IBLL.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.IBLL\bin\Debug\Document.Mgr.Model.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.IBLL\bin\Debug\EntityFramework.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.IBLL\bin\Debug\Document.Mgr.Model.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.IBLL\bin\Debug\EntityFramework.xml
+F:\ALLbishe\DocumentMgr\Document.Mgr.IBLL\obj\Debug\Document.Mgr.IBLL.csprojResolveAssemblyReference.cache
+F:\ALLbishe\DocumentMgr\Document.Mgr.IBLL\obj\Debug\Document.Mgr.IBLL.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.IBLL\obj\Debug\Document.Mgr.IBLL.pdb

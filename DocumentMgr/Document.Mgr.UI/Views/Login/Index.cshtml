@@ -1,0 +1,101 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Document.Mgr.Login</title>
+
+    <link rel="stylesheet" href="/Content/loginMy/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/Content/loginMy/css/loginMy.css" />
+
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+    <style>
+        html, body {
+            width: 100%;
+            color:#11EE96 ;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $(function () {
+            if (window.parent.window != window) {
+                window.top.location.href = "/Login/Index";
+            }
+            $("#img").click(changeCheckCode);
+            //$("#btnLogin").click(function () {
+            //    if (mySubmit()) {
+            //        var userName = $("#email").val();
+            //        var userPasword = $("#pwd").val();
+            //        var vCode = $("#vcode").val();
+            //        $.post("/Login/Index", { LoginMail: userName, LoginPwd: userPasword, vCode: vCode }, function (data) {
+            //            if (data == "ok") {
+            //                    window.location.href = "/ClientUser/Index";                            
+            //            } else {
+            //                changeCheckCode();
+            //                alert(data);
+            //            }
+            //        })
+            //    }
+            //});
+        });
+
+        function afterSubmit(data) {
+            if (data == "ok") {
+                window.location.href = "/ClientUser/Index";
+            } else {
+                changeCheckCode();
+                alert(data);
+            }
+        }
+
+        function changeCheckCode() {
+            $("#img").attr("src", $("#img").attr("src") + "1");
+        }
+        
+    </script>
+</head>
+<body>
+
+    <div class="main">
+
+        <div class="center">
+@using(Ajax.BeginForm("Index",new AjaxOptions(){OnSuccess="afterSubmit"}))
+    {
+                <i class="fa fa-user Cone">  | </i>
+                <input type="text" name="LoginMail" id="email" placeholder="邮箱" onblur="checkEmail()" />
+                <span id="email_info"></span>
+
+                <br />
+
+                <i class="fa fa-key Cone">  | </i>
+                <input type="password" name="LoginPwd" id="pwd" placeholder="密码" onblur="checkPwd()" />
+                <span id="pwd_info"></span>
+
+                <br />
+
+                <div>
+                    <i class="fa fa-folder-open Cone">  | </i>
+                    <input type="text" name="vCode" id="vcode" placeholder="验证码" onblur="checkVCode()" />
+                    <img alt="点击更换验证码"  src="/Login/ShowVCode?id=1" id="img" onclick="changeCheckCode();return false;" style="height: 2em; position: relative; right: 1px; top: 8px; " />
+                    <span id="vcode_info"></span><br />
+                </div>
+          
+
+                <input type="submit" value="登录"  id="" style="padding-left:10px;" />
+                <br />
+}
+        </div>
+
+    </div>
+
+
+    <script type="text/javascript" src="/Content/loginMy/js/loginMy.js"></script>
+    <div style="text-align:center;">
+    </div>
+</body>
+</html>

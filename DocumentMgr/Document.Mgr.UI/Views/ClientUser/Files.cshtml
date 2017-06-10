@@ -1,0 +1,139 @@
+﻿@model  List<Document.Mgr.Model.Attachment>
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>My Files</title>
+    <script src="~/Content/SWFUpload/swfupload.js"></script>
+    <script src="~/Content/SWFUpload/handlers.js"></script>
+
+
+
+
+    <script type="text/javascript">
+
+        //----------------------------------------SWFUpload------------------------------------
+        var swfu;
+        window.onload = function () {
+            swfu = new SWFUpload({
+                // Backend Settings
+                upload_url: "/ClientUser/FileUpload",
+                post_params: {
+                    "ASPSESSID": "@Session.SessionID"
+                },
+
+                // File Upload Settings
+                file_size_limit: "20 MB",
+                file_types: "*.*",
+                file_types_description: "AllFiles",
+                file_upload_limit: 0,    // Zero means unlimited
+
+                // Event Handler Settings - these functions as defined in Handlers.js
+                //  The handlers are not part of SWFUpload but are part of my website and control how
+                //  my website reacts to the SWFUpload events.
+                swfupload_preload_handler: preLoad,
+                swfupload_load_failed_handler: loadFailed,
+                file_queue_error_handler: fileQueueError,
+                file_dialog_complete_handler: fileDialogComplete,
+                upload_progress_handler: uploadProgress,
+                upload_error_handler: uploadError,
+                upload_success_handler: getUpImage,
+                //  upload_complete_handler: uploadComplete,
+
+                // Button settings
+                button_image_url: "/Content/SWFUpload/images/XPButtonNoText_160x22.png",
+                button_placeholder_id: "spanButtonPlaceholder",
+                button_width: 160,
+                button_height: 22,
+                button_text: '<span class="button">请选择上传文件<span class="buttonSmall">(20 MB Max)</span></span>',
+                button_text_style: '.button { font-family: Helvetica, Arial, sans-serif; font-size: 14pt; } .buttonSmall { font-size: 10pt; }',
+                button_text_top_padding: 1,
+                button_text_left_padding: 5,
+
+                // Flash Settings
+                flash_url: "/Content/SWFUpload/swfupload.swf", // Relative to this file
+                flash9_url: "/Content/SWFUpload/swfupload_FP9.swf", // Relative to this file
+
+                custom_settings: {
+                    upload_target: "divFileProgressContainer"
+                },
+
+                // Debug Settings
+                debug: false
+            });
+        }
+
+        function getUpImage(file, serverData) {
+            alert(serverData);
+            $("#FileUrl").val(serverData);
+        }
+        //----------------------------------------SWFUpload-End-----------------------------------
+    </script>
+</head>
+<body>
+    <div>
+        @using (Ajax.BeginForm("SendMessage", new AjaxOptions() { OnSuccess = "AfterSend" }))
+        {
+
+     
+                    if (Model.Count <= 0)
+                    {
+                        <div>暂时没有附件可预览哦....</div>
+                    }
+                    else
+                    {
+                        <table>
+                            @foreach (var file in Model)
+                            {
+                            <tr>
+                                <td>
+                                    <img src="~/Content/FileIcons/DocType.png" />
+                                </td>
+                                <td>
+                                    <a href="#">file.fileName</a>
+                                </td>
+                            </tr>
+                            }
+                        </table>
+                    }
+                
+
+
+            <table>
+                <tr>
+                    <td>
+                        附件:
+                    </td>
+
+                    <td>
+                        <div id="swfu_container" style="margin: 0px 10px;">
+                            <div>
+                                <span id="spanButtonPlaceholder"></span>
+                            </div>
+
+                            <div id="divFileProgressContainer" style="height: 75px;"></div>
+
+                            <div id="thumbnails"></div>
+
+                            <input type="hidden" name="FileUrl" id="FileUrl" />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="发送" />
+                    </td>
+                </tr>
+            </table>
+        }
+
+    </div>
+</body>
+</html>

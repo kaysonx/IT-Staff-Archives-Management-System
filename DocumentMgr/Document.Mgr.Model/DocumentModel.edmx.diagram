@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="be98314c30274ed3a1a0f3c153ef2c78" Name="Diagram1" >
+        <EntityTypeShape EntityType="DocumentModel.UserInfo" Width="1.5" PointX="1.125" PointY="0.5" />
+        <EntityTypeShape EntityType="DocumentModel.Position" Width="1.5" PointX="4.625" PointY="0.625" />
+        <EntityTypeShape EntityType="DocumentModel.Contact" Width="1.5" PointX="4.625" PointY="2.625" />
+        <EntityTypeShape EntityType="DocumentModel.Role" Width="1.5" PointX="1.125" PointY="6.25" />
+        <EntityTypeShape EntityType="DocumentModel.TechType" Width="1.5" PointX="9.625" PointY="3.75" />
+        <EntityTypeShape EntityType="DocumentModel.Tech" Width="1.5" PointX="7.375" PointY="3.625" />
+        <AssociationConnector Association="DocumentModel.TechTypeTech" />
+        <EntityTypeShape EntityType="DocumentModel.LevelDescription" Width="1.5" PointX="9.625" PointY="1.25" />
+        <EntityTypeShape EntityType="DocumentModel.R_UserInfo_Tech" Width="1.5" PointX="7.375" PointY="0.75" />
+        <AssociationConnector Association="DocumentModel.UserInfoR_UserInfo_Tech" />
+        <AssociationConnector Association="DocumentModel.TechR_UserInfo_Tech" />
+        <EntityTypeShape EntityType="DocumentModel.Country" Width="1.5" PointX="9.625" PointY="5.875" />
+        <EntityTypeShape EntityType="DocumentModel.City" Width="1.5" PointX="7.375" PointY="5.75" />
+        <AssociationConnector Association="DocumentModel.CountryCity" />
+        <EntityTypeShape EntityType="DocumentModel.Group" Width="1.5" PointX="4.625" PointY="5.25" />
+        <AssociationConnector Association="DocumentModel.CityGroup" />
+        <AssociationConnector Association="DocumentModel.UserInfoRole" />
+        <AssociationConnector Association="DocumentModel.UserInfoPosition" />
+        <AssociationConnector Association="DocumentModel.UserInfoContact" />
+        <AssociationConnector Association="DocumentModel.UserInfoGroup" />
+        <AssociationConnector Association="DocumentModel.R_UserInfo_TechLevelDescription" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

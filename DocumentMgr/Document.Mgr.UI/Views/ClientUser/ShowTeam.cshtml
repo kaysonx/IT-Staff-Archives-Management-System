@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Document.Mgr.Model.UserInfo>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>团队介绍</title>
+    <!-- Bootstrap -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+
+        @if (Model == null)
+        {
+            <span>没有团队数据！</span>
+        }
+        else
+        {
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3><span class="label label-info">@ViewData["teamName"]</span></h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>邮箱</th>
+                                <th>职位</th>
+                                <th>角色</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model)
+                            {
+                                <tr class="tr-click" uid="@user.Id">
+                                    <td>@user.Name</td>
+                                    <td>@user.Email</td>
+                                    <td>@user.Position.Name</td>
+                                    <td>@user.Role.Name</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+
+
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script>
+        $(".tr-click").click(function () {
+            var uid = $(this).attr('uid');
+            window.location.href = "/ClientUser/ViewDetail?uid=" + uid;
+        });
+    </script>
+
+</body>
+</html>

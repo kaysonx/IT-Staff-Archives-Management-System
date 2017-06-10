@@ -1,0 +1,16 @@
+F:\ALLbishe\DocumentMgr\Document.Mgr.DALFactory\bin\Debug\Document.Mgr.DALFactory.dll.config
+F:\ALLbishe\DocumentMgr\Document.Mgr.DALFactory\bin\Debug\Document.Mgr.DALFactory.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.DALFactory\bin\Debug\Document.Mgr.DALFactory.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.DALFactory\bin\Debug\Document.Mgr.EFDAL.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.DALFactory\bin\Debug\Document.Mgr.IDAL.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.DALFactory\bin\Debug\EntityFramework.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.DALFactory\bin\Debug\EntityFramework.SqlServer.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.DALFactory\bin\Debug\Document.Mgr.Model.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.DALFactory\bin\Debug\Document.Mgr.EFDAL.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.DALFactory\bin\Debug\Document.Mgr.IDAL.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.DALFactory\bin\Debug\EntityFramework.xml
+F:\ALLbishe\DocumentMgr\Document.Mgr.DALFactory\bin\Debug\EntityFramework.SqlServer.xml
+F:\ALLbishe\DocumentMgr\Document.Mgr.DALFactory\bin\Debug\Document.Mgr.Model.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.DALFactory\obj\Debug\Document.Mgr.DALFactory.csprojResolveAssemblyReference.cache
+F:\ALLbishe\DocumentMgr\Document.Mgr.DALFactory\obj\Debug\Document.Mgr.DALFactory.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.DALFactory\obj\Debug\Document.Mgr.DALFactory.pdb

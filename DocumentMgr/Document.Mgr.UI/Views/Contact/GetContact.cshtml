@@ -1,0 +1,85 @@
+﻿@model Document.Mgr.UI.Models.ContactModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Index</title>
+    <!-- Bootstrap -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: opensans-light, Open Sans;
+        }
+
+        .contactTd {
+            color: #FF8C00;
+        }
+
+        .nameStyle {
+            color: #555;
+            font-size: 3em;
+            display: inline-block;
+            line-height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="panel panel-default" style="margin-top:25px;" id="myContact">
+        <div class="" style="margin-top:25px;">
+            <div style="text-align:left ">
+                <div><span class="nameStyle">@Model.Name</span>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div style="margin-top:10px;"><span class="h3">@Model.Position</span></div>
+                <div style="margin-top:5px;"><span class="h3">@Model.UID&nbsp;&nbsp;|</span><span class="h3">&nbsp;&nbsp;@Model.Team</span></div>
+            </div>
+            <table class="table table-hover" style="text-align: left; margin-top:10px;">
+                <tr>
+                    <td rowspan="2" style="text-align:center;"><span class="glyphicon glyphicon-envelope"></span></td>
+                    <td>工作邮箱</td>
+                    <td class="contactTd">@Model.WorkEmail</td>
+                </tr>
+                <tr>
+                    <td>私人邮箱</td>
+                    <td class="contactTd">@Model.PersonalEmail</td>
+                </tr>
+            </table>
+            <hr />
+            <table class="table table-hover" style="text-align:left ">
+                <tr>
+                    <td rowspan="3" style="text-align:center;"><span class="glyphicon glyphicon-earphone"></span></td>
+                    <td>电话号码</td>
+                    <td class="contactTd">@Model.PhoneNumber</td>
+                </tr>
+                <tr>
+                    <td>微信</td>
+                    <td class="contactTd">@Model.WX</td>
+                </tr>
+                <tr>
+                    <td>微博</td>
+                    <td class="contactTd">@Model.Blog</td>
+                </tr>
+            </table>
+            <hr />
+            <table class="table table-hover" style="text-align:left ">
+                <tr>
+                    <td rowspan="2" style="text-align:center;"><span class="glyphicon glyphicon-home"></span></td>
+                    <td>城市</td>
+                    <td class="contactTd">@Model.City</td>
+                </tr>
+                <tr>
+                    <td>国家</td>
+                    <td class="contactTd">@Model.Country</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

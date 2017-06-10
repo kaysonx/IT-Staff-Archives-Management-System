@@ -1,0 +1,135 @@
+﻿@model List<Document.Mgr.Model.Tech>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/Content/H-ui.admin_v2.5/lib/html5.js"></script>
+    <script type="text/javascript" src="/Content/H-ui.admin_v2.5/lib/respond.min.js"></script>
+    <script type="text/javascript" src="/Content/H-ui.admin_v2.5/lib/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/Content/H-ui.admin_v2.5/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/H-ui.admin_v2.5/static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/H-ui.admin_v2.5/lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/H-ui.admin_v2.5/lib/icheck/icheck.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/H-ui.admin_v2.5/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="/Content/H-ui.admin_v2.5/static/h-ui.admin/css/style.css" />
+
+
+    <title>Tech管理</title>
+</head>
+<body>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 技能管理 <span class="c-gray en">&gt;</span> Tech管理 <a class="btn btn-success radius r btn-refresh" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+        <div class="text-c">
+            <form class="Huiform" method="post" action="/Tech/AddTech" target="_self" id="form-tech-add">
+                <input type="text" placeholder="技能名称" name="TechName" id="TechName" class="input-text" style="width:120px">
+           
+                 <span class="select-box" style="width:150px">
+                    @Html.DropDownList("typeId", ViewData["techTypes"] as SelectList, new { @class = "select" })
+                </span>
+                <button type="submit" class="btn btn-success" id="" ><i class="Hui-iconfont">&#xe600;</i> 添加</button>
+            </form>
+        </div>
+        <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span>  </div>
+        <div class="mt-20">
+            <table class="table table-border table-bordered table-bg table-sort">
+                <thead>
+
+                    <tr class="text-c">
+                        <th width="25"><input type="checkbox" name="" value=""></th>
+                        <th width="70">ID</th>
+                        <th width="80">名称</th>
+                        <th width="200">所属Type</th>
+                        <th width="100">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                            foreach (var item in Model)
+                            {
+                                string name = "ckb_" + item.Id;
+                                <tr class="text-c">
+                                    <td><input name="@name" type="checkbox" value="@item.Id"></td>
+                                    <td>@item.Id</td>
+                                    <td>@item.TechName</td>
+                                    <td>@item.TechType.TypeName</td>
+                                    <td class="f-14 product-brand-manage"><a style="text-decoration:none" onclick="tech_edit('Tech编辑','/Tech/Edit/@item.Id','600')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onclick="tech_del(this,'@item.Id')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                                </tr>
+                            }
+                      }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript" src="/Content/H-ui.admin_v2.5/lib/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/Content/H-ui.admin_v2.5/lib/layer/2.1/layer.js"></script>
+    <script type="text/javascript" src="/Content/H-ui.admin_v2.5/lib/laypage/1.2/laypage.js"></script>
+    <script type="text/javascript" src="/Content/H-ui.admin_v2.5/lib/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="/Content/H-ui.admin_v2.5/lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/Content/H-ui.admin_v2.5/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+    <script type="text/javascript" src="/Content/H-ui.admin_v2.5/lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+    <script type="text/javascript" src="/Content/H-ui.admin_v2.5/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/Content/H-ui.admin_v2.5/static/h-ui/js/H-ui.js"></script>
+    <script type="text/javascript" src="/Content/H-ui.admin_v2.5/static/h-ui.admin/js/H-ui.admin.js"></script>
+    <script src="~/Scripts/jquery-form.js"></script>
+    <script type="text/javascript">
+     $(function () {
+         $("#form-tech-add").validate({
+             rules: {
+                 TechName: {
+                     required: true,
+                     minlength: 2,
+                     maxlength: 16
+                 },
+             },
+             onkeyup: false,
+             focusCleanup: true,
+             success: "valid",
+             submitHandler: function (form) {
+                 $(form).ajaxSubmit(function (message) {
+                     if (message == "ok") {
+                         $('.btn-refresh').click();
+                     } else {
+                         layer.msg(message, { icon: 2, time: 1000 });
+                     }
+                 });
+             }
+         });      
+     });
+
+     function refresh() {
+         location.replace(location.href);
+     }
+
+     /*Tech-Edit*/
+     function tech_edit(title, url, w, h) {
+         layer_show(title, url, w, h);
+     }
+
+     /*Tech-Del*/
+     function tech_del(obj, id) {
+         layer.confirm('确认要删除吗？', function (index) {
+             var url = '/Tech/Delete/';
+             $.post(url, { id: id }, function (data) {
+                 if (data == "ok") {
+                     $(obj).parents("tr").remove();
+                     layer.msg('已删除!', { icon: 1, time: 1000 });
+                 } else {
+                     layer.msg(data, { icon: 5, time: 1000 });
+                 }
+             });
+         });
+     }
+    </script>
+</body>
+</html>

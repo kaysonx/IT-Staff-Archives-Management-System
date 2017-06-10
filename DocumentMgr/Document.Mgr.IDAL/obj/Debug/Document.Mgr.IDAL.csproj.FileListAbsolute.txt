@@ -1,0 +1,9 @@
+F:\ALLbishe\DocumentMgr\Document.Mgr.IDAL\bin\Debug\Document.Mgr.IDAL.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.IDAL\bin\Debug\Document.Mgr.IDAL.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.IDAL\bin\Debug\Document.Mgr.Model.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.IDAL\bin\Debug\EntityFramework.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.IDAL\bin\Debug\Document.Mgr.Model.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.IDAL\bin\Debug\EntityFramework.xml
+F:\ALLbishe\DocumentMgr\Document.Mgr.IDAL\obj\Debug\Document.Mgr.IDAL.csprojResolveAssemblyReference.cache
+F:\ALLbishe\DocumentMgr\Document.Mgr.IDAL\obj\Debug\Document.Mgr.IDAL.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.IDAL\obj\Debug\Document.Mgr.IDAL.pdb

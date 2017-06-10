@@ -1,0 +1,95 @@
+﻿@{
+    Layout = null;
+}
+@model Document.Mgr.Model.UserInfo
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Document.Mgr.Index</title>
+    <link href="~/Content/index.css" rel="stylesheet" />
+    <style>
+        .innerContent{
+            width:calc(100% - 100px);
+            height:100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrap">
+        <iframe src="/ClientUser/UserInfo" class="innerContent" name="content" id="innerContent" style="margin-left:100px;"></iframe>
+    </div>
+    <div class="nav-main">
+        <div class="nav-box">
+            <div class="nav">
+                <ul class="nav-ul">
+                    <li><a href="/ClientUser/UserInfo" target="content" class="replaceContent"><span>首页</span></a></li>
+                    <li><a href="/Contact/Index" target="content" class="replaceContent" ><span>通讯录</span></a></li>
+                    @if(Model.Auth >= 1 || Model.IsAdmin == true){
+                        <li><a href="/Search/Index" target="content" class="replaceContent"><span>搜索</span></a></li>
+                    }
+                    @if(Model.Auth >= 2 || Model.IsAdmin == true){
+                        <li><a href="/Home/Index" target="_blank"><span>后台管理</span></a></li>
+                    }
+                    <li><a href="/ClientUser/UpdateUserPwd" target="content" class="replaceContent"><span>修改密码</span></a></li>
+                    <li><a href="" class="replaceContent" id="logout"><span>退出</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>    
+    <script type="text/javascript">
+        $(function () {
+            var thisTime;
+            $('.nav-ul li').mouseleave(function (even) {
+                thisTime = setTimeout(thisMouseOut, 1000);
+            })
+
+            $('.nav-ul li').mouseenter(function () {
+                clearTimeout(thisTime);
+                var thisUB = $('.nav-ul li').index($(this));
+                if ($.trim($('.nav-slide-o').eq(thisUB).html()) != "") {
+                    $('.nav-slide').addClass('hover');
+                    $('.nav-slide-o').hide();
+                    $('.nav-slide-o').eq(thisUB).show();
+                }
+                else {
+                    $('.nav-slide').removeClass('hover');
+                }
+
+            })
+
+            function thisMouseOut() {
+                $('.nav-slide').removeClass('hover');
+            }
+
+            $('.nav-slide').mouseenter(function () {
+                clearTimeout(thisTime);
+                $('.nav-slide').addClass('hover');
+            })
+            $('.nav-slide').mouseleave(function () {
+                $('.nav-slide').removeClass('hover');
+            })
+
+        })
+    </script>    
+    <script>
+        $(function () {
+            $(".replaceContent").click(function () {
+                $("#innerContent").attr("src", $(this).attr("href"));
+            });
+
+            $("#logout").click(function () {
+                if (confirm("确定要退出么？")) {
+                    $.get("/Home/Logout", {}, function (data) {
+                        window.location.href = "/Login/Index";
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

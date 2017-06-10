@@ -1,0 +1,17 @@
+F:\ALLbishe\DocumentMgr\Document.Mgr.BLL\bin\Debug\Document.Mgr.BLL.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.BLL\bin\Debug\Document.Mgr.BLL.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.BLL\bin\Debug\Document.Mgr.DALFactory.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.BLL\bin\Debug\Document.Mgr.IBLL.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.BLL\bin\Debug\Document.Mgr.IDAL.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.BLL\bin\Debug\Document.Mgr.Model.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.BLL\bin\Debug\Document.Mgr.EFDAL.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.BLL\bin\Debug\EntityFramework.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.BLL\bin\Debug\Document.Mgr.DALFactory.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.BLL\bin\Debug\Document.Mgr.IBLL.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.BLL\bin\Debug\Document.Mgr.IDAL.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.BLL\bin\Debug\Document.Mgr.Model.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.BLL\bin\Debug\Document.Mgr.EFDAL.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.BLL\bin\Debug\EntityFramework.xml
+F:\ALLbishe\DocumentMgr\Document.Mgr.BLL\obj\Debug\Document.Mgr.BLL.csprojResolveAssemblyReference.cache
+F:\ALLbishe\DocumentMgr\Document.Mgr.BLL\obj\Debug\Document.Mgr.BLL.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.BLL\obj\Debug\Document.Mgr.BLL.pdb

@@ -1,0 +1,14 @@
+F:\ALLbishe\DocumentMgr\Document.Mgr.EFDAL\bin\Debug\Document.Mgr.EFDAL.dll.config
+F:\ALLbishe\DocumentMgr\Document.Mgr.EFDAL\bin\Debug\Document.Mgr.EFDAL.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.EFDAL\bin\Debug\Document.Mgr.EFDAL.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.EFDAL\bin\Debug\Document.Mgr.IDAL.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.EFDAL\bin\Debug\Document.Mgr.Model.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.EFDAL\bin\Debug\EntityFramework.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.EFDAL\bin\Debug\EntityFramework.SqlServer.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.EFDAL\bin\Debug\Document.Mgr.IDAL.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.EFDAL\bin\Debug\Document.Mgr.Model.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.EFDAL\bin\Debug\EntityFramework.xml
+F:\ALLbishe\DocumentMgr\Document.Mgr.EFDAL\bin\Debug\EntityFramework.SqlServer.xml
+F:\ALLbishe\DocumentMgr\Document.Mgr.EFDAL\obj\Debug\Document.Mgr.EFDAL.csprojResolveAssemblyReference.cache
+F:\ALLbishe\DocumentMgr\Document.Mgr.EFDAL\obj\Debug\Document.Mgr.EFDAL.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.EFDAL\obj\Debug\Document.Mgr.EFDAL.pdb

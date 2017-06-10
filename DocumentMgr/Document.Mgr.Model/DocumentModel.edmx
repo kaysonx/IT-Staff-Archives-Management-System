@@ -1,0 +1,745 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DocumentModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DocumentModelStoreContainer">
+    <EntitySet Name="UserInfos" EntityType="DocumentModel.Store.UserInfos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Positions" EntityType="DocumentModel.Store.Positions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Contacts" EntityType="DocumentModel.Store.Contacts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Roles" EntityType="DocumentModel.Store.Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TechTypes" EntityType="DocumentModel.Store.TechTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Techs" EntityType="DocumentModel.Store.Techs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LevelDescriptions" EntityType="DocumentModel.Store.LevelDescriptions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="R_UserInfo_Techs" EntityType="DocumentModel.Store.R_UserInfo_Techs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Countrys" EntityType="DocumentModel.Store.Countrys" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Citys" EntityType="DocumentModel.Store.Citys" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Groups" EntityType="DocumentModel.Store.Groups" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="TechTypeTech" Association="DocumentModel.Store.TechTypeTech">
+      <End Role="TechType" EntitySet="TechTypes" />
+      <End Role="Tech" EntitySet="Techs" />
+    </AssociationSet>
+    <AssociationSet Name="UserInfoR_UserInfo_Tech" Association="DocumentModel.Store.UserInfoR_UserInfo_Tech">
+      <End Role="UserInfo" EntitySet="UserInfos" />
+      <End Role="R_UserInfo_Tech" EntitySet="R_UserInfo_Techs" />
+    </AssociationSet>
+    <AssociationSet Name="TechR_UserInfo_Tech" Association="DocumentModel.Store.TechR_UserInfo_Tech">
+      <End Role="Tech" EntitySet="Techs" />
+      <End Role="R_UserInfo_Tech" EntitySet="R_UserInfo_Techs" />
+    </AssociationSet>
+    <AssociationSet Name="CountryCity" Association="DocumentModel.Store.CountryCity">
+      <End Role="Country" EntitySet="Countrys" />
+      <End Role="City" EntitySet="Citys" />
+    </AssociationSet>
+    <AssociationSet Name="CityGroup" Association="DocumentModel.Store.CityGroup">
+      <End Role="City" EntitySet="Citys" />
+      <End Role="Group" EntitySet="Groups" />
+    </AssociationSet>
+    <AssociationSet Name="UserInfoRole" Association="DocumentModel.Store.UserInfoRole">
+      <End Role="UserInfo" EntitySet="UserInfos" />
+      <End Role="Role" EntitySet="Roles" />
+    </AssociationSet>
+    <AssociationSet Name="UserInfoPosition" Association="DocumentModel.Store.UserInfoPosition">
+      <End Role="UserInfo" EntitySet="UserInfos" />
+      <End Role="Position" EntitySet="Positions" />
+    </AssociationSet>
+    <AssociationSet Name="UserInfoContact" Association="DocumentModel.Store.UserInfoContact">
+      <End Role="UserInfo" EntitySet="UserInfos" />
+      <End Role="Contact" EntitySet="Contacts" />
+    </AssociationSet>
+    <AssociationSet Name="UserInfoGroup" Association="DocumentModel.Store.UserInfoGroup">
+      <End Role="UserInfo" EntitySet="UserInfos" />
+      <End Role="Group" EntitySet="Groups" />
+    </AssociationSet>
+    <AssociationSet Name="R_UserInfo_TechLevelDescription" Association="DocumentModel.Store.R_UserInfo_TechLevelDescription">
+      <End Role="R_UserInfo_Tech" EntitySet="R_UserInfo_Techs" />
+      <End Role="LevelDescription" EntitySet="LevelDescriptions" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="UserInfos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="Gender" Type="smallint" Nullable="false" DefaultValue="1" />
+    <Property Name="Pwd" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="Remark" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="HiredTime" Type="datetime" Nullable="false" />
+    <Property Name="IsAssigned" Type="bit" Nullable="false" />
+    <Property Name="Picture" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsAdmin" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="IsEnabled" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="RoleId" Type="int" Nullable="false" />
+    <Property Name="PositionId" Type="int" Nullable="false" />
+    <Property Name="GroupId" Type="int" Nullable="false" />
+    <Property Name="Auth" Type="smallint" Nullable="false" DefaultValue="0" />
+  </EntityType>
+  <EntityType Name="Positions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Contacts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonalEmail" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="BlogUrl" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="WX" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="UserInfo_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="64" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="TechTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Techs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TechTypeId" Type="int" Nullable="false" />
+    <Property Name="TechName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LevelDescriptions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Level" Type="int" Nullable="false" DefaultValue="0" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="R_UserInfo_Techs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserInfoId" Type="int" Nullable="false" />
+    <Property Name="TechId" Type="int" Nullable="false" />
+    <Property Name="LevelDescriptionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Countrys">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Citys">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CountryId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Groups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CityId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="TechTypeTech">
+    <End Role="TechType" Type="DocumentModel.Store.TechTypes" Multiplicity="1" />
+    <End Role="Tech" Type="DocumentModel.Store.Techs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TechType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tech">
+        <PropertyRef Name="TechTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserInfoR_UserInfo_Tech">
+    <End Role="UserInfo" Type="DocumentModel.Store.UserInfos" Multiplicity="1" />
+    <End Role="R_UserInfo_Tech" Type="DocumentModel.Store.R_UserInfo_Techs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="R_UserInfo_Tech">
+        <PropertyRef Name="UserInfoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TechR_UserInfo_Tech">
+    <End Role="Tech" Type="DocumentModel.Store.Techs" Multiplicity="1" />
+    <End Role="R_UserInfo_Tech" Type="DocumentModel.Store.R_UserInfo_Techs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tech">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="R_UserInfo_Tech">
+        <PropertyRef Name="TechId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CountryCity">
+    <End Role="Country" Type="DocumentModel.Store.Countrys" Multiplicity="1" />
+    <End Role="City" Type="DocumentModel.Store.Citys" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="City">
+        <PropertyRef Name="CountryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CityGroup">
+    <End Role="City" Type="DocumentModel.Store.Citys" Multiplicity="1" />
+    <End Role="Group" Type="DocumentModel.Store.Groups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Group">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserInfoRole">
+    <End Role="UserInfo" Type="DocumentModel.Store.UserInfos" Multiplicity="*" />
+    <End Role="Role" Type="DocumentModel.Store.Roles" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserInfo">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserInfoPosition">
+    <End Role="UserInfo" Type="DocumentModel.Store.UserInfos" Multiplicity="*" />
+    <End Role="Position" Type="DocumentModel.Store.Positions" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Position">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserInfo">
+        <PropertyRef Name="PositionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserInfoContact">
+    <End Role="UserInfo" Type="DocumentModel.Store.UserInfos" Multiplicity="1" />
+    <End Role="Contact" Type="DocumentModel.Store.Contacts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Contact">
+        <PropertyRef Name="UserInfo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserInfoGroup">
+    <End Role="UserInfo" Type="DocumentModel.Store.UserInfos" Multiplicity="*" />
+    <End Role="Group" Type="DocumentModel.Store.Groups" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Group">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserInfo">
+        <PropertyRef Name="GroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_UserInfo_TechLevelDescription">
+    <End Role="R_UserInfo_Tech" Type="DocumentModel.Store.R_UserInfo_Techs" Multiplicity="*" />
+    <End Role="LevelDescription" Type="DocumentModel.Store.LevelDescriptions" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="LevelDescription">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="R_UserInfo_Tech">
+        <PropertyRef Name="LevelDescriptionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DocumentModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DocumentModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UserInfos" EntityType="DocumentModel.UserInfo" />
+          <EntitySet Name="Positions" EntityType="DocumentModel.Position" />
+          <EntitySet Name="Contacts" EntityType="DocumentModel.Contact" />
+          <EntitySet Name="Roles" EntityType="DocumentModel.Role" />
+          <EntitySet Name="TechTypes" EntityType="DocumentModel.TechType" />
+          <EntitySet Name="Techs" EntityType="DocumentModel.Tech" />
+          <AssociationSet Name="TechTypeTech" Association="DocumentModel.TechTypeTech">
+            <End Role="TechType" EntitySet="TechTypes" />
+            <End Role="Tech" EntitySet="Techs" />
+          </AssociationSet>
+          <EntitySet Name="LevelDescriptions" EntityType="DocumentModel.LevelDescription" />
+          <EntitySet Name="R_UserInfo_Techs" EntityType="DocumentModel.R_UserInfo_Tech" />
+          <AssociationSet Name="UserInfoR_UserInfo_Tech" Association="DocumentModel.UserInfoR_UserInfo_Tech">
+            <End Role="UserInfo" EntitySet="UserInfos" />
+            <End Role="R_UserInfo_Tech" EntitySet="R_UserInfo_Techs" />
+          </AssociationSet>
+          <AssociationSet Name="TechR_UserInfo_Tech" Association="DocumentModel.TechR_UserInfo_Tech">
+            <End Role="Tech" EntitySet="Techs" />
+            <End Role="R_UserInfo_Tech" EntitySet="R_UserInfo_Techs" />
+          </AssociationSet>
+          <EntitySet Name="Countrys" EntityType="DocumentModel.Country" />
+          <EntitySet Name="Citys" EntityType="DocumentModel.City" />
+          <AssociationSet Name="CountryCity" Association="DocumentModel.CountryCity">
+            <End Role="Country" EntitySet="Countrys" />
+            <End Role="City" EntitySet="Citys" />
+          </AssociationSet>
+          <EntitySet Name="Groups" EntityType="DocumentModel.Group" />
+          <AssociationSet Name="CityGroup" Association="DocumentModel.CityGroup">
+            <End Role="City" EntitySet="Citys" />
+            <End Role="Group" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="UserInfoRole" Association="DocumentModel.UserInfoRole">
+            <End Role="UserInfo" EntitySet="UserInfos" />
+            <End Role="Role" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="UserInfoPosition" Association="DocumentModel.UserInfoPosition">
+            <End Role="UserInfo" EntitySet="UserInfos" />
+            <End Role="Position" EntitySet="Positions" />
+          </AssociationSet>
+          <AssociationSet Name="UserInfoContact" Association="DocumentModel.UserInfoContact">
+            <End Role="UserInfo" EntitySet="UserInfos" />
+            <End Role="Contact" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="UserInfoGroup" Association="DocumentModel.UserInfoGroup">
+            <End Role="UserInfo" EntitySet="UserInfos" />
+            <End Role="Group" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="R_UserInfo_TechLevelDescription" Association="DocumentModel.R_UserInfo_TechLevelDescription">
+            <End Role="R_UserInfo_Tech" EntitySet="R_UserInfo_Techs" />
+            <End Role="LevelDescription" EntitySet="LevelDescriptions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" />
+          <Property Name="Gender" Type="Int16" Nullable="false" DefaultValue="1" />
+          <Property Name="Pwd" Type="String" Nullable="false" MaxLength="128" />
+          <Property Name="Remark" Type="String" Nullable="true" />
+          <Property Name="HiredTime" Type="DateTime" Nullable="false" >
+            <Documentation>
+              <Summary>入职时间</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="IsAssigned" Type="Boolean" Nullable="false" />
+          <Property Name="Picture" Type="String" Nullable="true" >
+            <Documentation>
+              <Summary>头像</Summary>
+            </Documentation>
+          </Property>
+          <NavigationProperty Name="R_UserInfo_Tech" Relationship="DocumentModel.UserInfoR_UserInfo_Tech" FromRole="UserInfo" ToRole="R_UserInfo_Tech" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="UID" Type="String" Nullable="false" />
+          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <NavigationProperty Name="Role" Relationship="DocumentModel.UserInfoRole" FromRole="UserInfo" ToRole="Role" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Position" Relationship="DocumentModel.UserInfoPosition" FromRole="UserInfo" ToRole="Position" />
+          <Property Name="PositionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Contact" Relationship="DocumentModel.UserInfoContact" FromRole="UserInfo" ToRole="Contact" />
+          <NavigationProperty Name="Group" Relationship="DocumentModel.UserInfoGroup" FromRole="UserInfo" ToRole="Group" />
+          <Property Name="GroupId" Type="Int32" Nullable="false" />
+          <Property Name="Auth" Type="Int16" Nullable="false" DefaultValue="0" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="true" />
+          <NavigationProperty Name="UserInfo" Relationship="DocumentModel.UserInfoPosition" FromRole="Position" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonalEmail" Type="String" Nullable="true" />
+          <Property Name="PhoneNumber" Type="String" Nullable="true" />
+          <Property Name="BlogUrl" Type="String" Nullable="true" />
+          <Property Name="WX" Type="String" Nullable="true" />
+          <NavigationProperty Name="UserInfo" Relationship="DocumentModel.UserInfoContact" FromRole="Contact" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Documentation>
+            <Summary>员工角色状态</Summary>
+            <LongDescription>实习、试用、正式、离职</LongDescription>
+          </Documentation>
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="64" />
+          <Property Name="Description" Type="String" Nullable="true" />
+          <NavigationProperty Name="UserInfo" Relationship="DocumentModel.UserInfoRole" FromRole="Role" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="TechType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Tech" Relationship="DocumentModel.TechTypeTech" FromRole="TechType" ToRole="Tech" />
+          <Property Name="TypeName" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Tech">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="TechType" Relationship="DocumentModel.TechTypeTech" FromRole="Tech" ToRole="TechType" />
+          <Property Name="TechTypeId" Type="Int32" Nullable="false" />
+          <Property Name="TechName" Nullable="false" Type="String" />
+          <NavigationProperty Name="R_UserInfo_Tech" Relationship="DocumentModel.TechR_UserInfo_Tech" FromRole="Tech" ToRole="R_UserInfo_Tech" />
+        </EntityType>
+        <Association Name="TechTypeTech">
+          <End Type="DocumentModel.TechType" Role="TechType" Multiplicity="1" />
+          <End Type="DocumentModel.Tech" Role="Tech" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tech">
+              <PropertyRef Name="TechTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LevelDescription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Level" Type="Int32" Nullable="false" DefaultValue="0" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="R_UserInfo_Tech" Relationship="DocumentModel.R_UserInfo_TechLevelDescription" FromRole="LevelDescription" ToRole="R_UserInfo_Tech" />
+        </EntityType>
+        <EntityType Name="R_UserInfo_Tech">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="UserInfo" Relationship="DocumentModel.UserInfoR_UserInfo_Tech" FromRole="R_UserInfo_Tech" ToRole="UserInfo" />
+          <Property Name="UserInfoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tech" Relationship="DocumentModel.TechR_UserInfo_Tech" FromRole="R_UserInfo_Tech" ToRole="Tech" />
+          <Property Name="TechId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="LevelDescription" Relationship="DocumentModel.R_UserInfo_TechLevelDescription" FromRole="R_UserInfo_Tech" ToRole="LevelDescription" />
+          <Property Name="LevelDescriptionId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="UserInfoR_UserInfo_Tech">
+          <End Type="DocumentModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="DocumentModel.R_UserInfo_Tech" Role="R_UserInfo_Tech" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="R_UserInfo_Tech">
+              <PropertyRef Name="UserInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TechR_UserInfo_Tech">
+          <End Type="DocumentModel.Tech" Role="Tech" Multiplicity="1" />
+          <End Type="DocumentModel.R_UserInfo_Tech" Role="R_UserInfo_Tech" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tech">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="R_UserInfo_Tech">
+              <PropertyRef Name="TechId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="City" Relationship="DocumentModel.CountryCity" FromRole="Country" ToRole="City" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Country" Relationship="DocumentModel.CountryCity" FromRole="City" ToRole="Country" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Group" Relationship="DocumentModel.CityGroup" FromRole="City" ToRole="Group" />
+        </EntityType>
+        <Association Name="CountryCity">
+          <End Type="DocumentModel.Country" Role="Country" Multiplicity="1" />
+          <End Type="DocumentModel.City" Role="City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="City" Relationship="DocumentModel.CityGroup" FromRole="Group" ToRole="City" />
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UserInfo" Relationship="DocumentModel.UserInfoGroup" FromRole="Group" ToRole="UserInfo" />
+        </EntityType>
+        <Association Name="CityGroup">
+          <End Type="DocumentModel.City" Role="City" Multiplicity="1" />
+          <End Type="DocumentModel.Group" Role="Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserInfoRole">
+          <End Type="DocumentModel.UserInfo" Role="UserInfo" Multiplicity="*" />
+          <End Type="DocumentModel.Role" Role="Role" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserInfoPosition">
+          <End Type="DocumentModel.UserInfo" Role="UserInfo" Multiplicity="*" />
+          <End Type="DocumentModel.Position" Role="Position" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="PositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserInfoContact">
+          <End Type="DocumentModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="DocumentModel.Contact" Role="Contact" Multiplicity="0..1" />
+        </Association>
+        <Association Name="UserInfoGroup">
+          <End Type="DocumentModel.UserInfo" Role="UserInfo" Multiplicity="*" />
+          <End Type="DocumentModel.Group" Role="Group" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_UserInfo_TechLevelDescription">
+          <End Type="DocumentModel.R_UserInfo_Tech" Role="R_UserInfo_Tech" Multiplicity="*" />
+          <End Type="DocumentModel.LevelDescription" Role="LevelDescription" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="LevelDescription">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="R_UserInfo_Tech">
+              <PropertyRef Name="LevelDescriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DocumentModelStoreContainer" CdmEntityContainer="DocumentModelContainer">
+    <EntitySetMapping Name="UserInfos">
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentModel.UserInfo)">
+        <MappingFragment StoreEntitySet="UserInfos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="HiredTime" ColumnName="HiredTime" />
+          <ScalarProperty Name="IsAssigned" ColumnName="IsAssigned" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UID" ColumnName="UID" />
+          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="PositionId" ColumnName="PositionId" />
+          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+          <ScalarProperty Name="Auth" ColumnName="Auth" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Positions">
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentModel.Position)">
+        <MappingFragment StoreEntitySet="Positions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Contacts">
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentModel.Contact)">
+        <MappingFragment StoreEntitySet="Contacts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PersonalEmail" ColumnName="PersonalEmail" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="BlogUrl" ColumnName="BlogUrl" />
+          <ScalarProperty Name="WX" ColumnName="WX" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentModel.Role)">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TechTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentModel.TechType)">
+        <MappingFragment StoreEntitySet="TechTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Techs">
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentModel.Tech)">
+        <MappingFragment StoreEntitySet="Techs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TechTypeId" ColumnName="TechTypeId" />
+          <ScalarProperty Name="TechName" ColumnName="TechName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LevelDescriptions">
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentModel.LevelDescription)">
+        <MappingFragment StoreEntitySet="LevelDescriptions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="R_UserInfo_Techs">
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentModel.R_UserInfo_Tech)">
+        <MappingFragment StoreEntitySet="R_UserInfo_Techs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
+          <ScalarProperty Name="TechId" ColumnName="TechId" />
+          <ScalarProperty Name="LevelDescriptionId" ColumnName="LevelDescriptionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Countrys">
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentModel.Country)">
+        <MappingFragment StoreEntitySet="Countrys">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Citys">
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentModel.City)">
+        <MappingFragment StoreEntitySet="Citys">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Groups">
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentModel.Group)">
+        <MappingFragment StoreEntitySet="Groups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="UserInfoContact" TypeName="DocumentModel.UserInfoContact" StoreEntitySet="Contacts">
+      <EndProperty Name="UserInfo">
+        <ScalarProperty Name="Id" ColumnName="UserInfo_Id" />
+      </EndProperty>
+      <EndProperty Name="Contact">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,7 @@
+F:\ALLbishe\DocumentMgr\Document.Mgr.Common\bin\Debug\Document.Mgr.Common.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.Common\bin\Debug\Document.Mgr.Common.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.Common\bin\Debug\log4net.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.Common\bin\Debug\log4net.xml
+F:\ALLbishe\DocumentMgr\Document.Mgr.Common\obj\Debug\Document.Mgr.Common.dll
+F:\ALLbishe\DocumentMgr\Document.Mgr.Common\obj\Debug\Document.Mgr.Common.pdb
+F:\ALLbishe\DocumentMgr\Document.Mgr.Common\obj\Debug\Document.Mgr.Common.csprojResolveAssemblyReference.cache

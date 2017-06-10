@@ -1,0 +1,209 @@
+﻿@model Document.Mgr.UI.Models.UserInfoModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Index</title>
+    <!-- Bootstrap -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .posotion {
+            padding: 1px 6px;
+            position: relative;
+            color: #fff;
+            border-radius: 2px;
+            font-size: 20px;
+            display: inline-block;
+            text-transform: uppercase;
+            margin-right: 7px;
+            background-color: #0cb0c6 !important;
+        }
+
+        .role {
+            font-size: 22px;
+            box-sizing: border-box;
+            line-height: 1.6;
+            font-weight: 100;
+            color: #666;
+        }
+
+        .ulInfo {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            text-align: center !important;
+        }
+
+        .nameStyle {
+            color: #555;
+            font-size: 3em;
+            display: inline-block;
+            line-height: 30px;
+        }
+
+        .littleName {
+            font-size: 17px;
+            font-style: italic;
+            color: #aaa;
+        }
+
+        a:hover {
+            color: #be3ab2;
+        }
+
+        a:link,
+        a:visited {
+            color: #972e8e;
+            text-decoration: none;
+        }
+
+        a:focus,
+        a:hover {
+            color: #0078a0;
+        }
+
+        a:hover {
+            cursor: pointer;
+        }
+
+        .hiredTime {
+            margin-top: 6px;
+            display: block;
+            font-weight: 100;
+            color: #666;
+        }
+
+        .assigned {
+            background: #f1f1f1;
+            color: #999;
+            font-family: opensans-light, Open Sans;
+            font-size: 16px;
+            padding: 0 10px;
+            text-transform: uppercase;
+        }
+
+        .employed {
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .bottemHeader {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="panel panel-primary">
+        <div class="panel-heading">详细信息</div>
+        <div>
+            <div class="container" style="margin-top: 5px;">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div>
+                            <img id="head_picture" class="img-thumbnail" width="240" alt="Head Picture" src="@Model.Pirture">
+                        </div>
+                        <div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div>
+                            <div class="bottemHeader">
+                                <span class="nameStyle">@Model.UserName <small class="littleName">&nbsp;&nbsp;UID:@Model.UID </small><small class="littleName">&nbsp;&nbsp;&nbsp;&nbsp; @Model.Gender</small></span>
+                            </div>
+                            <div>
+                                <hr />
+                            </div>
+                        </div>
+                        <div class="bottemHeader">
+                            <span class="posotion">职位: @Model.PositionName</span>
+                            <span class="role">@Model.RoleName</span>
+                        </div>
+                        <hr />
+                        <div class="bottemHeader">
+                            <a href="#"><span class="glyphicon glyphicon-pushpin"></span> 工作经验: @Model.WrokExp years of total experience of DocumentMgr.</a>
+                        </div>
+                        <hr />
+                        <div class="hiredTime bottemHeader">
+                            入职时间:  @Model.HIredTime
+                        </div>
+                        <hr />
+                        <div style="margin-bottom: 15px;">
+                            @if (Model.IsAssignable)
+                            {
+                                <span class="label label-info">ASSIGNABLE</span> <span>当前已被分配到项目中！</span>
+                            }
+                            else
+                            {
+                                <span class="label label-default">Not ASSIGNABLE</span> <span>当前没有被分配到想项目中!</span>
+                            }
+
+                        </div>
+
+                        <div class="employed">
+                            所属小组:  <a href="#" id="showTeam">@Model.WorkTeam</a> - @Model.WorkCity - @Model.WorkCountry
+                        </div>
+                    </div>
+                </div>
+                <!--个人信息-->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="height:920px;">
+            <iframe src="/ClientUser/GetSkillById?uid=@ViewData["id"]" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+
+
+    <!--一下是模态框  用于展示细节-->
+    <!-- Modal -->
+    <div class="modal fade" id="modalTeam" tabindex="-1" role="dialog" data-remote="" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document" style="display: inline-block; width: 600px; height:400px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            $("#showTeam").click(function () {
+                var teamName = $(this).text();
+                console.log("...", teamName)
+                if (teamName != "") {
+                    var path = "/ClientUser/ShowTeam?teamName=" + teamName;
+                    $("#modalTeam").attr("data-remote", path);
+                    $('#modalTeam').modal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

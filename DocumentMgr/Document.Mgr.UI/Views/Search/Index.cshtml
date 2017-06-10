@@ -1,0 +1,581 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+    <title>Document.Search</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style >
+    </style>
+</head>
+
+<body>
+    <div class="panel panel-primary">
+        <div class="panel-heading">搜索</div>
+        <div class="container">
+            <form>
+                <div>
+                    <div class="panel panel-default">
+                 
+                        <div class="row">
+                            <div class="col-md-4">
+                                @Html.DropDownList("typeId", ViewData["techTypes"] as SelectList, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control" name="tech" id="tech">
+                                    <option value="" selected>Tech</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-control" name="techLevel" id="techLevel">
+                                    <option value="6" selected>TechLevel</option>
+                                    <option value="2">1-2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary" id="addTechCondition">添加</button>
+                            </div>
+                        </div>
+
+                        <!--一级搜索条件end-->
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                @Html.DropDownList("country", ViewData["countries"] as SelectList, "请选择国家", new { @class = " form-control " })
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control " name="city" id="city">
+                                    <option value="" selected>请选择City</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <select class=" form-control " name="team" id="team">
+                                    <option value="" selected>请选择Team</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary" id="addAreaCondition">添加</button>
+                        </div><!--2....end-->
+                    </div>
+                    <div class="panel panel-default">
+                        <dl>
+                            <dd>
+                                <label>入职年限： </label>
+                                <label><a href="javascript:;" class="all year">不限</a></label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="year" value="1" readonly="readonly" />
+                                    <a href="javascript:;">一年以下</a>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="year" value="3" />
+                                    <a href="javascript:;">1-3 年 </a>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="year" value="5" />
+                                    <a href="javascript:;">3-5 年</a>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="year" value="10" />
+                                    <a href="javascript:;">5-10 年</a>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="year" value="11" />
+                                    <a href="javascript:;">10 年以上</a>
+                                </label>
+                            </dd>
+                        </dl>
+
+                        <dl>
+                            <dd>
+                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;职位： </label>
+                                <label><a href="javascript:;" class="all positionAll">不限</a> </label>
+                                @{
+                                    List<Document.Mgr.Model.Position> positions = (List<Document.Mgr.Model.Position>)ViewData["positions"];
+                                    foreach (var position in positions)
+                                    {
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" class="position" value="@position.Id">
+                                            <a href="javascript:;"> @position.Name</a>
+                                        </label>
+
+                                    }
+                                }
+                            </dd>
+                        </dl>
+
+                        <dl>
+                            <dd>
+                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;角色： </label>
+                                <label style="text-align:right"><a href="javascript:;" class="all roleAll">不限</a></label>
+                                @{
+                                    List<Document.Mgr.Model.Role> roles = (List<Document.Mgr.Model.Role>)ViewData["roles"];
+                                    foreach (var role in roles)
+                                    {
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" class="role" value="@role.Id">
+                                            <a href="javascript:;"> @role.Name</a>
+                                        </label>
+                                    }
+                                }
+                            </dd>
+                        </dl>
+                    </div><!--3....end-->
+
+                    <div class="panel panel-info">
+                        <div class="panel-heading">已选条件：</div>
+                        <div class="panel-body" id="selectConditions">
+
+                        </div>
+                        <div class="panel-footer"><span class="label label-danger" id="clearAll">清空全部</span></div>
+                    </div>
+                    <div class="panel panel-info">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <input type="search" name="keywords" id="keywords" class="input-text  form-control" />
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-success" id="btnSearch">搜索</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-info">
+                        <div id="searchResult">
+                            <table class="table table-bordered table-hover table-striped table-condensed">
+                                <thead>
+                                    <tr>
+                                        <td width="80px;">Id</td>
+                                        <td width="80px;">姓名</td>
+                                        <td width="80px;">职位</td>
+                                        <td width="80px;">角色</td>
+                                        <td width="100px;">所属小组</td>
+                                        <td width="200px;">邮箱</td>
+                                        <td>技术</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbBody">
+                                    <tr>
+                                        <td>1</td>
+                                        <td>彭青松</td>
+                                        <td>Dev</td>
+                                        <td>Intern</td>
+                                        <td>Dart</td>
+                                        <td>qspeng@thoughtworks.com</td>
+                                        <td>技术</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div id="pager" class="text-r"></div>
+                    </div>
+                </div>
+            </form>
+            <div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!--一下是模态框-->
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">提示</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="modalContent"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--一下是模态框  用于展示细节-->
+    <!-- Modal -->
+    <div class="modal fade" id="modalContact" tabindex="-1" role="dialog" data-remote="" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document" style="display: inline-block; width: 1000px; height:600px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">查看</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/Content/H-ui.admin_v2.5/lib/laypage/1.2/laypage.js"></script>
+
+        <script>
+            $(function () {
+
+                $(":checkbox,:radio").attr("disabled","disabled");
+
+
+                //绑定 TechType -> Tech
+                function techChange() {
+                    var selectValue = $("#typeId").val();
+                    //删除已有的数据
+                    $("#tech option").remove();
+                    var url = "/Tech/GetTechsByTechType";
+                    $.getJSON(url, { typeId: selectValue }, function (data) {
+                        if (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                var option = "<option value='" + data[i].Id + "'>" + data[i].TechName + "</option>";
+                                if (i == 0) {
+                                    option = "<option value='" + data[i].Id + "' selected >" + data[i].TechName + "</option>";;
+                                }
+                                $("#tech").append(option);
+                            }
+                        }
+                    });
+                };
+                techChange();
+                $("#typeId").change(function () {
+                    techChange();
+                });
+
+
+                //删除条件  动态添加的元素用on绑定事件
+                $(".glyphicon-remove").on("click", function () {
+                    var index = $(this).attr("teamid");
+                    if (!isNull(index)) {
+                        areas[index] = "";
+                    }
+                    $(this).remove();
+                })
+                //必须先找到已经存在的元素 再间接去找
+                $("#selectConditions").on("click", 'span', function () {
+                    var indexTech = $(this).attr("techid");
+                    var indexTeam = $(this).attr("teamid");
+                    if (!isNull(indexTeam)) {
+                        areas = [...areas.slice(0, indexTeam),...areas.slice(indexTeam+1)];
+                        //areas[indexTeam] = "";
+                        $(this).remove();
+                    }
+                    if (!isNull(indexTech)) {
+                        techs = [...techs.slice(0, indexTeam),...techs.slice(indexTeam+1)];
+                        // techs[indexTech] = "";
+                        $(this).remove();
+                    }
+                  
+                })
+
+                function appendCondition(data, cid, flag) {
+                    var conditionBox = $("#selectConditions");
+                    var content;
+                    if (flag == "tech")
+                    {
+                        content = '<span techid=' + cid + '  class="label  label-cid label-info"> <label class="glyphicon glyphicon-remove" aria-hidden="true">' + data + '</label></span>';
+                    } else if (flag == "team") {
+                        content = '<span teamid=' + cid + '  class="label label-info"> <label class="glyphicon glyphicon-remove" aria-hidden="true">' + data + '</label></span>';
+                    }
+                    
+                    var htmlContent = conditionBox.html();
+                    console.log(htmlContent);
+                    conditionBox.html(htmlContent + " " + content);
+                }
+
+
+           
+
+                //用于存放所有的条件
+                var conditions = new Object();
+                var techs = [];
+                var areas = [];
+                var workYear;
+                var positions = [];
+                var roles = [];
+                var conditionCount = 0;
+
+                conditions.techs = techs;
+                conditions.areas = areas;
+                conditions.workYear = workYear;
+                conditions.positions = positions;
+                conditions.roles = roles;
+
+                function isNull(data) {
+                    return (data == "" || data == undefined || data == null);
+                }
+
+                Array.prototype.removeByValue = function (val) {
+                    for (var i = 0; i < this.length; i++) {
+                        if (this[i] == val) {
+                            this.splice(i, 1);
+                            break;
+                        }
+                    }
+                }
+                $("#clearAll").click(function(){
+                    if(confirm("确认要清空全部条件？")){ 
+                        areas.splice(0,areas.length);
+                        techs.splice(0,techs.length);
+                        $("#selectConditions").children("span").remove();
+                    } 
+                });
+
+                //判断是否已有Tech存在
+                function hasTech(arr, techId) {
+                    for (var i = 0; i < arr.length; i++) {
+                        if (arr[i].techId == techId) {
+                            return i;
+                        }
+                    }
+                    return -1;
+                }
+                //判断是否已有Area存在
+                function hasArea(arr, countryId, cityId, teamId) {
+                    for (var i = 0; i < arr.length; i++) {
+                        if (arr[i].countryId == countryId && arr[i].cityId == cityId && arr[i].teamId == teamId) {
+                            return i;
+                        }
+                    }
+                    return -1;
+                }
+
+
+                //绑定添加搜索点击事件
+                $("#addTechCondition").click(function () {
+                    var techId = $("#tech").val().trim();
+                    var techLevel = $("#techLevel").val();
+
+                    var selectedTechText = $("#tech").find("option:selected").text();
+                    var selectedLevelText = $("#techLevel").find("option:selected").text() == "TechLevel" ? "all" : $("#techLevel").find("option:selected").text();
+
+                    if (!isNull(techId)) {
+                        var tech = new Object();
+                        tech.techId = techId;
+                        tech.techLevel = techLevel;
+                        var index = hasTech(techs, techId);
+                        if (index == -1) {
+                            var index = techs.length - 1;
+                            techs.push(tech);
+                            appendCondition( selectedTechText + " : " + selectedLevelText,  index, "tech")
+                        } else {
+                            //更新TechLevel
+                            techs[index].techLevel = techLevel;
+                        }
+
+
+                        console.log(conditions);
+                    }
+                    return false;//阻止按钮自动提交刷新页面
+                });
+                //添加区域
+                $("#addAreaCondition").click(function () {
+                    var countryId = $("#country").val();
+                    var cityId = $("#city").val();
+                    var teamId = $("#team").val();
+
+                    var selectedTeamText = $("#team").find("option:selected").text();
+
+                    if (!isNull(countryId) && !isNull(teamId)) {
+                        var area = new Object();
+                        area.countryId = countryId;
+                        area.cityId = isNull(cityId) ? "" : cityId;
+                        area.teamId = isNull(teamId) ? "" : teamId;
+                        var index = hasArea(areas, countryId, cityId, teamId);
+                        if (index == -1) {
+                            var index = techs.length - 1;
+                            areas.push(area);
+                            appendCondition(selectedTeamText, index, "team");
+                        }
+                        console.log(conditions);
+                    }
+                    return false;//阻止按钮自动提交刷新页面
+                });
+
+
+                //所有a标签绑定事件（不包含特定）
+                $("a:not('.all')").click(function () {
+                    //处理 radio
+                    var radioVal = $(this).prev(":radio").val();
+                    if (!isNull(radioVal)) {
+                        conditions.workYear = radioVal;
+                    }
+
+                    //处理checkbox
+                    var check = $(this).prev(":checkbox");
+                    if (isNull(check.prop("checked"))) {
+                        if (check.hasClass("position")) {
+                            //positions.push(check.val()); 经测试 这种方法已经拿不到值了...
+                            positions.push(check.attr("value"));
+                            //console.log(check.attr("value"))
+                        }
+
+                        if (check.hasClass("role")) {
+                            roles.push(check.attr("value"));
+                        }
+                    } else {
+                        if (check.hasClass("position")) {
+                            positions.removeByValue(check.attr("value"));
+                        }
+
+                        if (check.hasClass("role")) {
+                            roles.removeByValue(check.attr("value"));
+                        }
+                    }
+                    var checkedVal = $(this).prev(":checkbox").prop("checked");
+                    console.log(checkedVal)
+                    //prop()和attr()  使用attr会有诡异的问题。。。第二次就没有效果了
+                    if (isNull(checkedVal)) {
+                        $(this).prev().prop("checked", true);
+                    } else {
+                        $(this).prev().prop("checked", false);
+                    }
+
+
+                    console.log(conditions)
+                });
+
+                $(".all").click(function () {
+                    if ($(this).hasClass("year")) {
+                        $(":radio").prop("checked", false);
+                        conditions.workYear = "";
+                    }
+                    if ($(this).hasClass("positionAll")) {
+                        $(".position").prop("checked", false);
+                        //不能用这种清空数组的方法。。。
+                        //conditions.positions = [];
+                        conditions.positions.splice(0, positions.length);
+                    }
+                    if ($(this).hasClass("roleAll")) {
+                        $(".role").prop("checked", false);
+                        //conditions.roles = [];
+                        conditions.roles.splice(0, roles.length);
+                    }
+                    console.log(conditions)
+                });
+
+                $("#btnSearch").click(function () {
+                    var conditionsJson = JSON.stringify(conditions);
+                    var keywords = $("#keywords").val().trim();
+                    pager();
+                    return false;
+                });
+
+                //三级联动...
+                $("#country").change(function () {
+                    var selectValue = $(this).val();
+                    //删除已有的数据
+                    $("#city option").remove();
+                    var url = "/Home/GetCityData";
+                    $.getJSON(url, { id: selectValue }, function (data) {
+                        if (data) {
+                            var defaultOp = '<option value="" selected>----请选择City----</option>';
+                            $("#city").append(defaultOp);
+                            for (var i = 0; i < data.length; i++) {
+                                var option = "<option value='" + data[i].Id + "'>" + data[i].Name + "</option>";
+                                $("#city").append(option);
+                            }
+                        }
+                    });
+                });
+
+                function cityChange() {
+                    var selectValue = $("#city").val();
+                    var sv = $("#city").se
+                    //删除已有的数据
+                    $("#team option").remove();
+                    var url = "/Home/GetTeamData";
+                    $.getJSON(url, { id: selectValue }, function (data) {
+                        if (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                var option = "<option value='" + data[i].Id + "'>" + data[i].Name + "</option>";
+                                $("#team").append(option);
+                            }
+                        }
+                    });
+                }
+
+                //三级联动...
+                $("#city").change(function () {
+                    cityChange();
+                });
+
+                //分页查询
+                //以下将以jquery.ajax为例，演示一个异步分页
+                function pager(curr) {
+                    var conditionsJson = JSON.stringify(conditions);
+                    var keywords = $("#keywords").val().trim();
+                    $.post("/Search/SearchPerson", { conditions: conditionsJson, keywords: keywords, page: curr || 1 }, function (res) {
+                        if (res.total == 0) {
+                            $("#modalContent").text('没有找到匹配的信息！');
+                            $('#myModal').modal();
+                        } else {
+                            var tb = $("#searchResult");
+                            tb.html("");//清空先
+                            var data = res.data;
+                            var strHtml = '<table class="table table-bordered table-hover table-striped table-condensed">      <thead>     <tr>    <td width="80px;">Id</td>     <td width="80px;">姓名</td> <td width="80px;">职位</td>   <td width="80px;">角色</td>  <td width="100px;">所属小组</td>  <td width="200px;">邮箱</td>   <td>技术</td></tr>        </thead>         <tbody id="tbBody">';
+                            for (var i = 0; i < data.length; i++) {
+                                var tr = "";
+                                tr += "<tr class='tr-click' uid="+data[i].Id+">";
+                                tr += "<td>" + data[i].Id + "</td>";
+                                tr += "<td>" + data[i].Name + "</td>";
+                                tr += "<td>" + data[i].PositionName + "</td>";
+                                tr += "<td>" + data[i].RoleName + "</td>";
+                                tr += "<td>" + data[i].GroupName + "</td>";
+                                tr += "<td>" + data[i].Email + "</td>";
+                                tr += "<td>" + data[i].Techs + "</td>";
+                                tr += "</tr>"
+                                strHtml += tr;
+                            }
+                            strHtml += "</tbody>            </table>";
+                            tb.html(strHtml);
+
+                            //动态生成的要在这绑定才可以。。。
+                            $(".tr-click").click(function () {
+                                var uid = $(this).attr('uid');
+                                var path = "/ClientUser/ViewDetail?uid=" + uid;
+                                $("#modalContact").attr("data-remote", path);
+                                $('#modalContact').modal();
+                            });
+   
+                            laypage({
+                                cont: 'pager', //容器。值支持id名、原生dom对象，jquery对象。【如该容器为】：<div id="page1"></div>
+                                pages: res.total, //通过后台拿到的总页数
+                                curr: curr || 1, //当前页
+                                // skin: 'molv', //皮肤
+                                skip: true, //是否开启跳页
+                                jump: function (obj, first) { //触发分页后的回调
+                                    if (!first) { //点击跳页触发函数自身，并传递当前页：obj.curr
+                                        pager(obj.curr);
+                                    }
+                                }
+                            });
+                        }
+                    });     
+
+                }
+                //运行
+               // pager();
+
+            });
+
+
+        </script>
+
+</body>
+</html>
+
